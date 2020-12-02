@@ -40,6 +40,14 @@ class UsersController extends Controller
         return view('users.edit', compact('user'));
     }
 
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
+    }
+
     public function update(User $user, Request $request)
     {
         $this->authorize('update',$user);
